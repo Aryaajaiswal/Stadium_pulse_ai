@@ -107,11 +107,13 @@ Parallel Rendering
 ## 📸 Screenshots
 
 ### Command Center Dashboard
-![Command Center Dashboard - Live Operations View](screenshots/command-center.png)
+![Command Center Dashboard - Live Operations View]<img width="1920" height="2184" alt="image" src="https://github.com/user-attachments/assets/ea6b5ffe-7c65-47db-b40a-11855a28d778" />
+
 *Real-time stadium heatmap with 24-segment occupancy zones, live metrics, AI terminal, and incident log for operational control.*
 
 ### Fan Concierge Interface
-![Fan Concierge - Wayfinding & Engagement](screenshots/fan-concierge.png)
+![Fan Concierge - Wayfinding & Engagement]<img width="1920" height="2090" alt="image" src="https://github.com/user-attachments/assets/7917a411-ce10-424b-89fe-925ffb394240" />
+
 *Interactive fan companion with contextual chatbot, AR wayfinder for seat navigation, eco-tracker gamification, and scenario-aware alerts.*
 
 ---
