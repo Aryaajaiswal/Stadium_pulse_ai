@@ -4,7 +4,7 @@
   "description": "Automated evaluation test framework configuration for FIFA Stadium Pulse AI.",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "node run-tests.js"
   },
   "devDependencies": {
     "jest": "^29.0.0"
