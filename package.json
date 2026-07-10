@@ -1,0 +1,12 @@
+﻿{
+  "name": "stadium-pulse-ai",
+  "version": "1.0.0",
+  "description": "Testing framework configuration for FIFA Stadium Pulse AI automated evaluation.",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
