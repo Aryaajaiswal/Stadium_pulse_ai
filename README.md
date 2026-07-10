@@ -61,15 +61,15 @@ The application centers on a **scenario state machine** that propagates operatio
 │                    Global Scenario State                     │
 │  (Pre-Match | Kick-off | Halftime | Post-Match | Weather)  │
 └─────────────────┬──────────────────────┬────────────────────┘
-                  │                      │
-        ┌─────────▼────────┐    ┌───────▼─────────┐
-        │  Command Center  │    │  Fan Concierge  │
-        ├──────────────────┤    ├─────────────────┤
-        │ • Heatmap color  │    │ • Greeting text │
-        │ • Metrics update │    │ • AR destination│
-        │ • Incident seed  │    │ • Alert badge   │
-        │ • AI terminal    │    │ • Scenario icon │
-        └──────────────────┘    └─────────────────┘
+                   │                      │
+         ┌─────────▼────────┐    ┌───────▼─────────┐
+         │  Command Center  │    │  Fan Concierge  │
+         ├──────────────────┤    ├─────────────────┤
+         │ • Heatmap color  │    │ • Greeting text │
+         │ • Metrics update │    │ • AR destination│
+         │ • Incident seed  │    │ • Alert badge   │
+         │ • AI terminal    │    │ • Scenario icon │
+         └──────────────────┘    └─────────────────┘
 ```
 
 ### Scenario-Driven Behavior
@@ -101,6 +101,18 @@ Parallel Rendering
     ├─ Command Center: Heatmap, metrics, terminal
     └─ Fan Concierge: Greeting, AR path, alerts
 ```
+
+---
+
+## 📸 Screenshots
+
+### Command Center Dashboard
+![Command Center Dashboard - Live Operations View](screenshots/command-center.png)
+*Real-time stadium heatmap with 24-segment occupancy zones, live metrics, AI terminal, and incident log for operational control.*
+
+### Fan Concierge Interface
+![Fan Concierge - Wayfinding & Engagement](screenshots/fan-concierge.png)
+*Interactive fan companion with contextual chatbot, AR wayfinder for seat navigation, eco-tracker gamification, and scenario-aware alerts.*
 
 ---
 
@@ -152,17 +164,6 @@ npx serve .
 python -m http.server 3000
 # Navigate to http://localhost:3000
 ```
-
----
-
-## 📸 Demo Walkthrough
-
-1. **Load the app** — Ops dashboard shows Pre-Match state with AI terminal and telemetry
-2. **Click "Kick-off Surge"** — Watch heatmap animate red, metrics count up, AI streams live analysis
-3. **Switch to Fan Concierge** — See contextual warning + AR path updated to your seat
-4. **Click incident's "Fan Alert"** — Deep-links to Fan view with priority notification
-5. **Select "Severe Weather"** — Full red alert, AI activates shelter guidance, Fan view shows emergency protocol
-6. **Check in on transit** — Eco-Tracker awards points, chat confirms sustainable choice
 
 ---
 
