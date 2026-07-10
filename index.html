@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stadium Pulse AI — FIFA World Cup 2026 Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Ambient background layers -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow bg-glow--cyan" aria-hidden="true"></div>
+<div class="bg-glow bg-glow--green" aria-hidden="true"></div>
+
+<div class="app">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="topbar">
+    <div class="topbar__brand">
+      <div class="brand-mark" aria-hidden="true">
+        <!-- Cybernetic Football Logo -->
+        <svg class="cyber-logo" viewBox="0 0 56 56" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="ballGrad" cx="38%" cy="35%" r="62%">
+              <stop offset="0%" stop-color="#2a3060"/>
+              <stop offset="55%" stop-color="#0d0f26"/>
+              <stop offset="100%" stop-color="#06070f"/>
+            </radialGradient>
+            <radialGradient id="shineGrad" cx="35%" cy="30%" r="45%">
+              <stop offset="0%" stop-color="rgba(0,242,254,0.22)"/>
+              <stop offset="100%" stop-color="rgba(0,242,254,0)"/>
+            </radialGradient>
+            <filter id="orbitGlow">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <clipPath id="ballClip"><circle cx="28" cy="28" r="18.5"/></clipPath>
+          </defs>
+          <!-- Ball body -->
+          <circle cx="28" cy="28" r="18.5" fill="url(#ballGrad)" stroke="rgba(0,242,254,0.35)" stroke-width="0.8"/>
+          <!-- Shine overlay -->
+          <circle cx="28" cy="28" r="18.5" fill="url(#shineGrad)"/>
+          <!-- Cyber panel lines clipped to ball -->
+          <g clip-path="url(#ballClip)" stroke="rgba(0,242,254,0.45)" stroke-width="0.7" fill="none">
+            <polygon points="28,9.5 36,15 34,24 22,24 20,15"/>
+            <polygon points="34,24 40,28 37,37 28,39 22,37 19,28 22,24 34,24"/>
+            <line x1="28" y1="9.5" x2="28" y2="4"/>
+            <line x1="36" y1="15" x2="41" y2="11"/>
+            <line x1="40" y1="28" x2="46.5" y2="28"/>
+            <line x1="37" y1="37" x2="41" y2="43"/>
+            <line x1="28" y1="39" x2="28" y2="46"/>
+            <line x1="19" y1="28" x2="9.5" y2="28"/>
+            <line x1="20" y1="15" x2="14" y2="11"/>
+            <line x1="22" y1="37" x2="16" y2="43"/>
+          </g>
+          <!-- Back orbit ring (behind ball, lower opacity) -->
+          <ellipse cx="28" cy="28" rx="25" ry="8" fill="none"
+            stroke="url(#orbitRingGrad)" stroke-width="2" opacity="0.5"
+            transform="rotate(-28 28 28)"
+            stroke-dasharray="42 36"
+            filter="url(#orbitGlow)"/>
+          <!-- Front orbit ring (in front) -->
+          <ellipse cx="28" cy="28" rx="25" ry="8" fill="none"
+            stroke="url(#orbitRingGrad)" stroke-width="2.2" opacity="0.9"
+            transform="rotate(-28 28 28)"
+            stroke-dasharray="36 42" stroke-dashoffset="42"
+            filter="url(#orbitGlow)"/>
+          <!-- Accent sparkle dot top-left -->
+          <circle cx="17" cy="16" r="1.3" fill="#b06fff" opacity="0.85"/>
+          <circle cx="40" cy="40" r="1" fill="#00f2fe" opacity="0.7"/>
+          <defs>
+            <linearGradient id="orbitRingGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#b06fff"/>
+              <stop offset="50%" stop-color="#00f2fe"/>
+              <stop offset="100%" stop-color="#0df2a2"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-text__title">Stadium Pulse <span class="accent-cyan">AI</span></span>
+        <span class="brand-text__sub">ArenaFlow · FIFA World Cup 2026</span>
+      </div>
+    </div>
+
+    <div class="topbar__mid">
+      <label class="stadium-select">
+        <span class="stadium-select__label">Venue</span>
+        <select id="stadiumSelect">
+          <option value="metlife">MetLife Stadium — East Rutherford</option>
+          <option value="azteca">Estadio Azteca — Mexico City</option>
+          <option value="att">AT&amp;T Stadium — Arlington</option>
+          <option value="bcplace">BC Place — Vancouver</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="topbar__right">
+      <div class="live-clock" id="liveClock">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="clockTime">00:00:00</span>
+      </div>
+      <nav class="portal-tabs" role="tablist" aria-label="Portal switch">
+        <button class="portal-tab is-active" role="tab" aria-selected="true" data-portal="ops" id="tabOps">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          Command Center
+        </button>
+        <button class="portal-tab" role="tab" aria-selected="false" data-portal="fan" id="tabFan">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 7l9 5 9-5-9-5Z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+          Fan Concierge
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== PORTALS WRAPPER ===================== -->
+  <div class="portals-wrap">
+
+  <!-- ===================== COMMAND CENTER VIEW ===================== -->
+  <main class="portal portal--ops is-active" id="portalOps" aria-labelledby="tabOps">
+
+    <!-- Simulation Controller -->
+    <section class="panel sim-controller" aria-label="Simulation controller">
+      <div class="panel__head">
+        <h2 class="panel__title">Scenario Simulator</h2>
+        <span class="panel__hint">Drive the live model</span>
+      </div>
+      <div class="sim-modes" id="simModes">
+        <button class="sim-mode is-active" data-mode="prematch">
+          <span class="sim-mode__icon">◷</span><span>Pre-Match</span>
+        </button>
+        <button class="sim-mode" data-mode="kickoff">
+          <span class="sim-mode__icon">▶</span><span>Kick-off Surge</span>
+        </button>
+        <button class="sim-mode" data-mode="halftime">
+          <span class="sim-mode__icon">⏸</span><span>Halftime Rush</span>
+        </button>
+        <button class="sim-mode" data-mode="postmatch">
+          <span class="sim-mode__icon">⇥</span><span>Post-Match Exit</span>
+        </button>
+        <button class="sim-mode sim-mode--warn" data-mode="weather">
+          <span class="sim-mode__icon">⚡</span><span>Severe Weather</span>
+        </button>
+      </div>
+      <div class="sim-status">
+        <span class="sim-status__label">Active scenario</span>
+        <span class="sim-status__value" id="simStatusValue">Pre-Match — Gates Open</span>
+      </div>
+    </section>
+
+    <div class="ops-grid">
+      <!-- Interactive Stadium Map -->
+      <section class="panel map-panel" aria-label="Interactive stadium map">
+        <div class="panel__head">
+          <h2 class="panel__title">Live Venue Map</h2>
+          <div class="legend">
+            <span class="legend__item"><i class="dot dot--low"></i>Low</span>
+            <span class="legend__item"><i class="dot dot--mid"></i>Moderate</span>
+            <span class="legend__item"><i class="dot dot--high"></i>Critical</span>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <svg id="stadiumMap" viewBox="0 0 600 600" class="stadium-map">
+            <!-- outer bowl ring -->
+            <circle cx="300" cy="300" r="280" class="map-ring" />
+            <!-- seating bowl sections -->
+            <g id="bowlSections"></g>
+            <!-- pitch -->
+            <ellipse cx="300" cy="300" rx="150" ry="105" class="map-pitch" />
+            <line x1="300" y1="195" x2="300" y2="405" class="map-pitch-line"/>
+            <circle cx="300" cy="300" r="30" class="map-pitch-line map-pitch-line--fill-none" />
+            <!-- gates -->
+            <g id="mapGates"></g>
+            <!-- transit zones -->
+            <g id="mapTransit"></g>
+            <!-- food stalls -->
+            <g id="mapFood"></g>
+            <!-- live telemetry dots -->
+            <g id="telemetryGroup">
+              <circle id="telDotA1" cx="265" cy="295" r="5" class="telemetry-dot telemetry-a"/>
+              <circle id="telDotA2" cx="310" cy="285" r="5" class="telemetry-dot telemetry-a"/>
+              <circle id="telDotB1" cx="335" cy="315" r="5" class="telemetry-dot telemetry-b"/>
+              <circle id="telDotB2" cx="278" cy="318" r="5" class="telemetry-dot telemetry-b"/>
+              <circle id="telBall"  cx="300" cy="300" r="4.5" class="telemetry-ball"/>
+            </g>
+          </svg>
+          <div class="map-tooltip" id="mapTooltip" role="status" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- Live Metrics -->
+      <section class="panel metrics-panel" aria-label="Live metrics">
+        <div class="panel__head">
+          <h2 class="panel__title">Live Metrics</h2>
+          <span class="panel__hint" id="metricsUpdated">updating…</span>
+        </div>
+        <div class="metrics-grid" id="metricsGrid">
+          <!-- populated by JS -->
+        </div>
+      </section>
+    </div>
+
+    <div class="ops-grid ops-grid--lower">
+      <!-- OpsGenius AI Command Panel -->
+      <section class="panel ai-panel" aria-label="OpsGenius AI command panel">
+        <div class="panel__head">
+          <h2 class="panel__title">
+            <span class="ai-orb" aria-hidden="true"></span>
+            OpsGenius <span class="accent-cyan">AI</span>
+          </h2>
+          <span class="panel__hint">Tactical reasoning engine</span>
+        </div>
+        <div class="ai-feed" id="aiFeed"></div>
+      </section>
+
+      <!-- Incident Log -->
+      <section class="panel incident-panel" aria-label="Incident log">
+        <div class="panel__head">
+          <h2 class="panel__title">Incident Log</h2>
+          <span class="incident-count" id="incidentCount">0 open</span>
+        </div>
+        <ul class="incident-list" id="incidentList"></ul>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===================== FAN CONCIERGE VIEW ===================== -->
+  <main class="portal portal--fan" id="portalFan" aria-labelledby="tabFan">
+
+    <div class="fan-grid">
+      <!-- Chatbot -->
+      <section class="panel chat-panel" aria-label="Fan companion AI chatbot">
+        <div class="panel__head">
+          <h2 class="panel__title">
+            <span class="ai-orb ai-orb--green" aria-hidden="true"></span>
+            Fan Companion
+          </h2>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="scenario-badge" id="chatScenarioBadge">⚡ Pre-Match</span>
+            <label class="lang-select">
+              <span class="sr-only">Language</span>
+              <select id="langSelect">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="chat-window" id="chatWindow"></div>
+
+        <div class="quick-prompts" id="quickPrompts">
+          <button class="quick-prompt" data-prompt="transit">🚌 Transit &amp; parking</button>
+          <button class="quick-prompt" data-prompt="accessibility">♿ Accessibility help</button>
+          <button class="quick-prompt" data-prompt="queue">⏱️ Gate wait times</button>
+          <button class="quick-prompt" data-prompt="sustainability">🌱 Sustainable choices</button>
+          <button class="quick-prompt" data-prompt="seat">💺 Find my seat</button>
+        </div>
+
+        <form class="chat-input" id="chatForm">
+          <input type="text" id="chatInput" placeholder="Ask about gates, transit, food, seats…" autocomplete="off" />
+          <button type="submit" class="chat-send" aria-label="Send message">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg>
+          </button>
+        </form>
+      </section>
+
+      <div class="fan-side">
+        <!-- AR Wayfinder -->
+        <section class="panel ar-panel" aria-label="AR wayfinder simulator">
+          <div class="panel__head">
+            <h2 class="panel__title">AR Wayfinder</h2>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="ar-alert-badge is-hidden" id="arAlertBadge">⚠ HIGH DENSITY</span>
+              <span class="panel__hint">Point &amp; go</span>
+            </div>
+          </div>
+          <div class="ar-view" id="arView">
+            <div class="ar-scan-line" aria-hidden="true"></div>
+            <svg class="ar-path" viewBox="0 0 300 200" aria-hidden="true">
+              <path id="arPathLine" d="M40,180 C90,140 120,160 160,110 S 220,60 260,30" />
+              <circle cx="40" cy="180" r="5" class="ar-you" />
+            </svg>
+            <div class="ar-pin ar-pin--dest">
+              <span class="ar-pin__icon">🎯</span>
+              <span class="ar-pin__label" id="arDestLabel">Gate C14</span>
+              <span class="ar-pin__dist" id="arDestDist">140 m</span>
+            </div>
+            <div class="ar-hud">
+              <span id="arInstruction">Head north-east toward the concourse ramp</span>
+            </div>
+          </div>
+          <div class="ar-controls">
+            <button class="ar-target" data-target="Gate C14">Nearest Gate</button>
+            <button class="ar-target" data-target="Section 214, Row 12">My Seat</button>
+            <button class="ar-target" data-target="Accessible Restroom">Restroom</button>
+            <button class="ar-target" data-target="Fan Zone Plaza">Fan Zone</button>
+          </div>
+        </section>
+
+        <!-- Eco Tracker -->
+        <section class="panel eco-panel" aria-label="Green fan eco tracker">
+          <div class="panel__head">
+            <h2 class="panel__title">Eco-Tracker</h2>
+            <span class="eco-score" id="ecoScoreLabel">0 pts</span>
+          </div>
+
+          <div class="eco-ring-wrap">
+            <svg viewBox="0 0 120 120" class="eco-ring">
+              <circle cx="60" cy="60" r="52" class="eco-ring__track"/>
+              <circle cx="60" cy="60" r="52" class="eco-ring__progress" id="ecoRingProgress"/>
+            </svg>
+            <div class="eco-ring__center">
+              <span id="ecoPercent">0%</span>
+              <small>Green Footprint</small>
+            </div>
+          </div>
+
+          <ul class="eco-actions">
+            <li>
+              <button class="eco-action" data-eco="transit" data-points="20">
+                <span>🚆 Check in on public transit</span><span class="eco-pts">+20</span>
+              </button>
+            </li>
+            <li>
+              <button class="eco-action" data-eco="refill" data-points="10">
+                <span>💧 Refill reusable bottle</span><span class="eco-pts">+10</span>
+              </button>
+            </li>
+            <li>
+              <button class="eco-action" data-eco="recycle" data-points="15">
+                <span>♻️ Sort waste at a recycling point</span><span class="eco-pts">+15</span>
+              </button>
+            </li>
+            <li>
+              <button class="eco-action" data-eco="walk" data-points="10">
+                <span>🚶 Walk instead of rideshare</span><span class="eco-pts">+10</span>
+              </button>
+            </li>
+          </ul>
+          <p class="eco-note" id="ecoNote">Complete actions to unlock fan reward tiers.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  </div><!-- /.portals-wrap -->
+
+  <footer class="app-footer">
+    <span>Stadium Pulse AI — offline operations simulation. All data is procedurally generated for demonstration.</span>
+  </footer>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
