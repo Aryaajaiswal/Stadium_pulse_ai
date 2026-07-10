@@ -979,4 +979,17 @@ const FIFA_CHALLENGE_ALIGNMENT = {
   }
 
   document.addEventListener('DOMContentLoaded', init);
+
+  /* Expose internal data for test imports */
+  globalThis.__arenaflow = { SCENARIOS, SCENARIO_AI_STEPS, SCENARIO_FAN_CONTEXT, state };
 })();
+
+if (typeof module !== 'undefined' && module.exports) {
+  const d = globalThis.__arenaflow || {};
+  module.exports = {
+    SCENARIOS: d.SCENARIOS || {},
+    SCENARIO_AI_STEPS: d.SCENARIO_AI_STEPS || {},
+    SCENARIO_FAN_CONTEXT: d.SCENARIO_FAN_CONTEXT || {},
+    state: d.state || {},
+  };
+}
