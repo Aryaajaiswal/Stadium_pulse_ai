@@ -3,16 +3,10 @@
   "version": "1.0.0",
   "description": "Automated evaluation test framework configuration for FIFA Stadium Pulse AI.",
   "main": "app.js",
-  "type": "module",
   "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage"
-  },
-  "jest": {
-    "testEnvironment": "jsdom"
+    "test": "jest"
   },
   "devDependencies": {
-    "jest": "^29.0.0",
-    "jest-environment-jsdom": "^29.0.0"
+    "jest": "^29.0.0"
   }
 }
