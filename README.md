@@ -183,7 +183,7 @@ Stadium_pulse_ai/
 
 ## 👩‍💻 Author
 
-**Arya Ajaiswal**
+**Aryaa jaiswal**
 FIFA World Cup 2026 Hackathon · Stadium Technology Track
 
 ---
